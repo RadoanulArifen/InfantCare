@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infant Care - Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #f0f9fc 0%, #e8f4f8 100%);
+            color: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 3rem;
+            background: transparent;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #17a2a2;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #5a7a7d;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #17a2a2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto 40px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #0f172a;
+        }
+
+        h1 span.icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #e0f2fe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #0284c7;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 32px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            color: #334155;
+            font-size: 15px;
+        }
+
+        textarea,
+        input {
+            width: 100%;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            padding: 14px 16px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            background: #f8fafc;
+            font-family: inherit;
+        }
+
+        textarea:focus,
+        input:focus {
+            outline: none;
+            border-color: #17a2a2;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(23, 162, 162, 0.1);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 32px;
+            background: #17a2a2;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 99px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.2s ease;
+            box-shadow: 0 10px 20px -5px rgba(23, 162, 162, 0.4);
+        }
+
+        button:hover {
+            background: #138a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgba(23, 162, 162, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* --- New Result UI Styles --- */
+        .result-container {
+            margin-top: 40px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-header::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 24px;
+            background: #17a2a2;
+            border-radius: 4px;
+        }
+
+        /* Empty State */
+        .no-issues-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        /* Condition Cards */
+        .condition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .condition-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #f59e0b;
+            /* Default warning color */
+            transition: transform 0.2s;
+        }
+
+        .condition-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .condition-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 17px;
+            color: #1e293b;
+        }
+
+        .condition-card p {
+            margin: 0;
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* Confidence Badges */
+        .confidence-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .conf-high {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #86efac;
+        }
+
+        .conf-medium {
+            background: #fef9c3;
+            color: #854d0e;
+            border: 1px solid #fde047;
+        }
+
+        .conf-low {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #cbd5e1;
+        }
+
+        /* Specific Colors for conditions */
+        .card-fever {
+            border-left-color: #ef4444;
+        }
+
+        /* Red */
+        .card-ari {
+            border-left-color: #3b82f6;
+        }
+
+        /* Blue */
+        .card-diarrhea {
+            border-left-color: #eab308;
+        }
+
+        /* Yellow */
+
+        /* Advice Section */
+        .advice-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .advice-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .advice-list li {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #334155;
+            align-items: flex-start;
+        }
+
+        .advice-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .check-icon {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: -2px;
+        }
+
+        /* Warnings Section */
+        .warning-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .warning-title {
+            color: #991b1b;
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-list li {
+            color: #b91c1c;
+        }
+
+        .footer {
+            margin-top: 32px;
+            font-size: 13px;
+            color: #94a3b8;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 24px;
+            }
+
+            header {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">IS</div>
+            <span>Infant Care</span>
+        </div>
+        <nav>
+            <a href="/">Go Back</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>
+            <span class="icon">🩺</span>
+            Symptom Assessment
+        </h1>
+        <div class="subtitle">
+            Please describe your child's condition in detail. This tool uses AI logic to check for common pediatric
+            symptoms.
+        </div>
+
+        <form method="post">
+            <label for="symptom">Describe Symptoms</label>
+            <textarea id="symptom" name="symptom"
+                placeholder="Example: My baby has a dry cough and runny nose, and feels warm to the touch...">{{ symptom_value or "" }}</textarea>
+
+            <div class="row">
+                <div class="field">
+                    <label for="age">Child's Age (Months)</label>
+                    <input id="age" name="age" type="number" min="0" step="1" placeholder="e.g. 6"
+                        value="{{ age_value or '' }}">
+                </div>
+                <div class="field">
+                    <label for="temp">Temperature</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input id="temp" name="temp" type="text" placeholder="e.g. 100.4" value="{{ temp_value or '' }}"
+                            style="flex:1;">
+                        <select name="unit" id="unit"
+                            style="width: 80px; border-radius: 12px; border: 2px solid #e2e8f0; padding: 0 10px; font-size: 16px; background: #f8fafc;">
+                            <option value="F" {% if unit_value=='F' %}selected{% endif %}>°F</option>
+                            <option value="C" {% if unit_value=='C' %}selected{% endif %}>°C</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Analyze Symptoms</button>
+        </form>
+
+        {% if result_data %}
+        <div class="result-container">
+
+            {% if not result_data.found_issues %}
+            <div class="no-issues-box">
+                <h3>No Specific Pattern Found</h3>
+                <p>The system could not match these symptoms to a specific common illness.</p>
+                <p style="margin-top:10px; font-size: 14px;">If your child looks unwell, please consult a doctor.</p>
+            </div>
+
+            {% else %}
+            <div class="result-header">Possible Conditions</div>
+            <div class="condition-grid">
+                {% for condition in result_data.conditions %}
+                <div class="condition-card card-{{ condition.id|replace(' ', '-') }}">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <h3>{{ condition.name }}</h3>
+                    </div>
+                    <p>{{ condition.detail }}</p>
+                    <div style="margin-top:8px; font-size:12px; color:#64748b;">
+                        <strong>Evidence:</strong> {{ condition.detail.split(': ')[1] if ':' in condition.detail else
+                        'Symptoms matched' }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="result-header">Suggested Care Actions</div>
+            <div class="advice-box">
+                <ul class="advice-list">
+                    {% for advice in result_data.general_advice %}
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <span>{{ advice }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <div class="warning-title">
+                    <span>🚨</span> When to see a doctor immediately:
+                </div>
+                <ul class="advice-list warning-list">
+                    {% for warn in result_data.emergency_warnings %}
+                    <li>
+                        <span class="check-icon" style="color:#ef4444">!</span>
+                        <span>{{ warn }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+        </div>
+        {% elif result_data == "Please describe your child's symptoms." %}
+        <!-- Error case for empty input -->
+        <div style="margin-top: 20px; color: #ef4444; font-weight: 600; text-align: center;">
+            Please enter some symptoms to analyze.
+        </div>
+        {% endif %}
+
+        <div class="footer">
+            ⚠️ Disclaimer: This tool is a supportive assistant and NOT a medical diagnosis.
+            <br>Always contact a pediatrician if you are concerned about your child's health.
+        </div>
+    </div>
+</body>
+
+</html>
