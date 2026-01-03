@@ -20,9 +20,8 @@ An advanced pediatric symptom assessment AI that uses weighted logic and fuzzy m
    python app.py
    ```
 
-3. Open browser:
-   - Landing Page: `http://127.0.0.1:5000/demo`
-   - Assessment Tool: `http://127.0.0.1:5000/`
+3. Open browser: `https://infant-care-chatbot.onrender.com/`
+  
 
 ## Files
 - `app.py`: Web server (Flask).
