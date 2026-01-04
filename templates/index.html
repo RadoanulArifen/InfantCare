@@ -447,7 +447,7 @@
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                         <h3>{{ condition.name }}</h3>
                     </div>
-                    <p>{{ condition.detail }}</p>
+                    <!-- <p>{{ condition.detail }}</p> -->
                     <div style="margin-top:8px; font-size:12px; color:#64748b;">
                         <strong>Evidence:</strong> {{ condition.detail.split(': ')[1] if ':' in condition.detail else
                         'Symptoms matched' }}
