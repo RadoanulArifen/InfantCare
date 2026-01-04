@@ -34,6 +34,16 @@ chatbot_symptom_keywords = {
         # typos
         ("feaver", 1.5),
         ("feverr", 1.5),
+        ("feverishness", 1.5),
+        
+        # Human-like descriptions
+        ("head is burning", 2.0),
+        ("forehead is hot", 2.0),
+        ("sweating through clothes", 1.5),
+        ("feels like an oven", 1.5),
+        ("shaking from cold", 1.5),
+        ("body is very warm", 1.5),
+        ("too hot to touch", 2.0),
     ],
 
     "diarrhea": [
@@ -65,6 +75,15 @@ chatbot_symptom_keywords = {
         ("water coming instead of stool", 2.0),
         ("poop looks like water", 2.0),
         ("stomach bug", 1.0),
+        
+        # Human-like descriptions
+        ("poop is like juice", 2.5),
+        ("yellow water", 2.0),
+        ("dirty diaper all the time", 1.5),
+        ("pooping every hour", 2.0),
+        ("messy poop", 1.5),
+        ("loose motions", 2.0),
+        ("watery diarrhea", 3.0),
     ],
 
     "skin infection": [
@@ -88,6 +107,15 @@ chatbot_symptom_keywords = {
         ("bumpy skin", 1.0),
         ("bumps", 1.5),
         ("red bumps", 2.0),
+        
+        # Human-like descriptions
+        ("skin is peeling", 2.0),
+        ("crusty skin", 2.0),
+        ("scratched it open", 1.5),
+        ("angry red rash", 2.5),
+        ("weird marks on skin", 1.5),
+        ("skin is dry and flaky", 1.5),
+        ("pimply", 1.5),
     ],
 
     "ear infection": [
@@ -109,6 +137,15 @@ chatbot_symptom_keywords = {
         # casual (Low)
         ("touching ear", 1.0),
         ("playing with ear", 0.8),
+        
+        # Human-like descriptions
+        ("banging head", 2.0),
+        ("cries when lying down", 2.0),
+        ("wont let me touch head", 2.0),
+        ("ear is red", 1.5),
+        ("smelly fluid from ear", 3.0),
+        ("bad smell from ear", 2.5),
+        ("hitting side of head", 2.0),
     ],
 
     "ari": [
@@ -133,6 +170,16 @@ chatbot_symptom_keywords = {
         ("snotty nose", 1.0),
         ("nasal congestion", 1.0),
         ("chest is noisy", 1.5),
+        
+        # Human-like descriptions
+        ("whistling breath", 2.5),
+        ("chest is tight", 2.5),
+        ("barking cough", 2.5),
+        ("can't catch breath", 3.0),
+        ("heavy breathing", 2.0),
+        ("breathing sounds like a whistle", 2.5),
+        ("phlegm", 1.5),
+        ("lots of mucus", 1.5),
     ]
 }
 

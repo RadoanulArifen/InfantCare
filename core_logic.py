@@ -157,10 +157,10 @@ def build_support_message(symptom_text, flags, scores, priority, evidence, age, 
     active = [d for d, v in flags.items() if v == 1]
 
     name_map = {
-        "fever": "Fever / Pyrexia",
-        "diarrhea": "Diarrhea / Dehydration Risk",
-        "ear infection": "Ear Infection (Otitis Media)",
-        "skin infection": "Skin Infection / Dermatitis",
+        "fever": "Fever ",
+        "diarrhea": "Diarrhea ",
+        "ear infection": "Ear Infection ",
+        "skin infection": "Skin Infection ",
         "ari": "Respiratory Infection (ARI)"
     }
 
@@ -217,11 +217,25 @@ def build_support_message(symptom_text, flags, scores, priority, evidence, age, 
         result_data["general_advice"].append("Comfort: Keep nose clear with saline drops. Keep baby upright.")
 
     # 3. Emergency Warnings
-    result_data["emergency_warnings"] = [
-        "Difficulty Breathing (Fast breathing, chest indrawing, grunting).",
-        "Altered Consciousness (Hard to wake, very drowsy).",
-        "Severe Dehydration (Sunken eyes, no tears, dry mouth).",
-        "High Fever (>104°F) or Fever > 3 days."
-    ]
+    # 3. Emergency Warnings
+    warnings_map = {
+        "ari": "If breathing becomes very fast, chest pulls in during breathing, grunting sounds occur, or lips turn bluish — seek emergency care immediately.",
+        "fever": "If fever reaches ≥102°F (38.9°C), lasts more than 48 hours, or is accompanied by seizures, lethargy, or stiff neck — seek urgent medical care.",
+        "diarrhea": "If the child shows signs of severe dehydration such as sunken eyes, no urine for 8+ hours, inability to drink, or repeated vomiting — seek emergency care.",
+        "ear infection": "If there is swelling behind the ear, persistent crying with high fever, pus discharge, or worsening pain — consult a doctor urgently.",
+        "skin infection": "If the rash spreads rapidly, is associated with fever, pus, skin peeling, or signs of systemic illness — seek immediate medical attention."
+    }
+    
+    global_safety_net = "Any sudden deterioration, unresponsiveness, seizures, or caregiver concern should prompt immediate medical evaluation."
+
+    dynamic_warnings = []
+    for d in active:
+        if d in warnings_map:
+            dynamic_warnings.append(warnings_map[d])
+            
+    # Always append global safety net
+    dynamic_warnings.append(global_safety_net)
+    
+    result_data["emergency_warnings"] = dynamic_warnings
 
     return result_data
